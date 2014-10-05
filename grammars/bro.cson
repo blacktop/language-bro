@@ -1,0 +1,154 @@
+'fileTypes': [
+  'bro'
+]
+'foldingStartMarker': '^(\\@if(n?def)?)'
+'foldingStopMarker': '^\\@endif'
+'name': 'Bro'
+'patterns': [
+  {
+    'begin': '#'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.comment.bro'
+    'end': '$\\n?'
+    'name': 'comment.line.number-sign.bro'
+  }
+  {
+    'match': '\\b(break|case|continue|else|for|if|return|switch|next|when|timeout|schedule)\\b'
+    'name': 'keyword.control.bro'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.type.bro'
+      '2':
+        'name': 'entity.name.function.bro'
+      '3':
+        'name': 'variable.parameter'
+    'match': '^\\s*(?:function|hook|event)\\s*(.*)\\s*\\((.*)\\).*$'
+    'name': 'meta.function.bro'
+  }
+  {
+    'match': '\\b(bool|enum|double|int|count|port|addr|subnet|any|file|interval|time|string|table|vector|set|record|pattern|hook)\\b'
+    'name': 'storage.type.bro'
+  }
+  {
+    'match': '\\b(global|const|redef|local|&(optional|rotate_interval|rotate_size|add_func|del_func|expire_func|expire_create|expire_read|expire_write|persistent|synchronized|encrypt|mergeable|priority|group|type_column|log|error_handler))\\b'
+    'name': 'storage.modifier.bro'
+  }
+  {
+    'match': '\\s*(\\||&&|(>|<|!)=?|==)\\s*|\\b(!?in)\\b'
+    'name': 'keyword.operator.bro'
+  }
+  {
+    'match': '\\b(T|F)\\b'
+    'name': 'constant.language.bro'
+  }
+  {
+    'match': '\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(/(tcp|udp|icmp)|(\\s*(u?sec|min|hr|day)s?))?\\b'
+    'name': 'constant.numeric.bro'
+  }
+  {
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.bro'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.bro'
+    'name': 'string.quoted.double.bro'
+    'patterns': [
+      {
+        'include': '#string_escaped_char'
+      }
+      {
+        'include': '#string_placeholder'
+      }
+    ]
+  }
+  {
+    'begin': '/'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.bro'
+    'end': '/'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.bro'
+    'name': 'string.quoted.regex.bro'
+    'patterns': [
+      {
+        'include': '#string_escaped_char'
+      }
+      {
+        'include': '#string_placeholder'
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(\\@load(-sigs)?)\\b'
+    'captures':
+      '1':
+        'name': 'keyword.other.special-method.bro'
+    'end': '(?=(?:\\#))|$'
+    'name': 'meta.preprocessor.bro.load'
+  }
+  {
+    'begin': '^\\s*(\\@endif|\\@if(?:n?def)?).*$'
+    'captures':
+      '1':
+        'name': 'keyword.other.special-method.bro'
+    'end': '$'
+    'name': 'meta.preprocessor.bro.if'
+  }
+]
+'repository':
+  'disabled':
+    'begin': '^\\s*\\@if(n?def)?\\b.*$'
+    'comment': 'eat nested preprocessor ifdefs'
+    'end': '^\\s*\\@endif\\b.*$'
+    'patterns': [
+      {
+        'include': '#disabled'
+      }
+      {
+        'include': '#pragma-mark'
+      }
+    ]
+  'preprocessor-rule-other':
+    'begin': '^\\s*(@if(n?def)?)\\b.*?(?:(?=)|$)'
+    'captures':
+      '1':
+        'name': 'meta.preprocessor.bro'
+      '2':
+        'name': 'meta.preprocessor.bro'
+    'end': '^\\s*(@endif)\\b.*$'
+    'patterns': [
+      {
+        'include': '$base'
+      }
+    ]
+  'string_escaped_char':
+    'patterns': [
+      {
+        'match': '\\\\(\\\\|[abefnprtv\'"?]|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2})'
+        'name': 'constant.character.escape.bro'
+      }
+      {
+        'match': '\\\\.'
+        'name': 'invalid.illegal.unknown-escape.bro'
+      }
+    ]
+  'string_placeholder':
+    'patterns': [
+      {
+        'match': '(?x)%\n\t\t\t\t\t\t(\\d+\\$)?                             # field (argument #)\n\t\t\t\t\t\t[#0\\- +\']*                           # flags\n\t\t\t\t\t\t[,;:_]?                              # separator character (AltiVec)\n\t\t\t\t\t\t((-?\\d+)|\\*(-?\\d+\\$)?)?              # minimum field width\n\t\t\t\t\t\t(\\.((-?\\d+)|\\*(-?\\d+\\$)?)?)?         # precision\n\t\t\t\t\t\t(hh|h|ll|l|j|t|z|q|L|vh|vl|v|hv|hl)? # length modifier\n\t\t\t\t\t\t[diouxXDOUeEfFgGaACcSspn%]           # conversion type\n\t\t\t\t\t'
+        'name': 'constant.other.placeholder.bro'
+      }
+      {
+        'match': '%'
+        'name': 'invalid.illegal.placeholder.bro'
+      }
+    ]
+'scopeName': 'source.bro'

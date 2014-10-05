@@ -1,0 +1,16 @@
+'.source.bro':
+  'event':
+    'prefix': 'ev'
+    'body': 'event ${1:bro_init}(${2:${3:arg_name}: ${4:arg_type}})\n\t{\n\t${5:#code}\n\t}'
+  'function':
+    'prefix': 'fun'
+    'body': 'function ${1:function_name}(${2:${3:arg_name}: ${4:arg_type}}): ${5:return_type}\n\t{\n\t${6:# code...}\n\t}'
+  'if statement':
+    'prefix': 'if'
+    'body': 'if ( ${1} )\n\t{\n\t${0:#code}\n\t}'
+  'notice':
+    'prefix': 'notice'
+    'body': 'NOTICE([$note=$1,\n        $msg=fmt("$3", $4),\n        $conn=${5:c},\n        $sub=fmt("$6", $7)]);'
+  'when statement':
+    'prefix': 'when'
+    'body': 'when ( ${1} )\n\t{\n\t${2:#code}\n\t}\ntimeout ${3}\n\t{\n\t${4:#code}\n\t}\n'

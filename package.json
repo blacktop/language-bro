@@ -1,6 +1,6 @@
 {
   "name": "language-bro",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Bro syntax highlighting",
   "repository": "https://github.com/blacktop/language-bro",
   "license": "MIT",

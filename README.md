@@ -39,4 +39,4 @@ Please update the [CHANGELOG.md](https://github.com/blacktop/language-bro/blob/m
 
 ### License
 
-MIT Copyright (c) 2014-2016 **blacktop**
+MIT Copyright (c) 2014-2017 **blacktop**

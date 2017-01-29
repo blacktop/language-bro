@@ -1,4 +1,4 @@
-![bro-logo](https://raw.githubusercontent.com/blacktop/docker-bro/master/logo.png)
+![bro-logo](https://github.com/blacktop/docker-bro/raw/master/docs/imgs/logo.png)
 
 language-bro
 ============
